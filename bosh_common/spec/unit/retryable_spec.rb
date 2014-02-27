@@ -106,6 +106,29 @@ describe Bosh::Retryable do
 
     count.should == 3
   end
+  it 'should retry on certain exceptions matching respective messages or other exceptions' do
+    count = 0
+
+    expect {
+      described_class.new(tries: 4,
+                          on: [ArgumentError, StandardError],
+                          on_matching: {StandardError => /Ignore Std/ , RuntimeError => /Ignore Runtime/ , }
+      ).retryer do |tries|
+        count += 1
+        if tries <= 1
+          raise ArgumentError # should retry
+        elsif tries == 2
+          raise StandardError, 'Ignore Std' # should retry
+        elsif tries == 3
+          raise RuntimeError, 'Ignore Runtime' # should retry
+        else
+          raise RuntimeError # should exit loop, it's not matching filter
+        end
+      end
+    }.to raise_error StandardError
+
+    count.should == 4
+  end
 
   it 'should sleep on each retry the given number of seconds' do
     Kernel.should_receive(:sleep).with(5).twice

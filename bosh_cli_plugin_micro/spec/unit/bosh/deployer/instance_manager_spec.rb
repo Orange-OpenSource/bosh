@@ -46,5 +46,20 @@ describe Bosh::Deployer::InstanceManager do
       expect(described_class).to have_received(:new).
                                    with(config, 'fake-config-sha1', ui_messager, 'fake-plugin')
     end
+
+    it 'retries on BadResponseError (503 bad proxy) when waiting for agent' +
+           ' and director through an http proxy' do
+      described_class.stub(:require)
+      described_class.any_instance.stub(:initialize) {}
+      allow(Bosh::Common).to receive(:retryable)
+      instance_manager = Bosh::Deployer::InstanceManager.create(config)
+
+      instance_manager.send(:wait_until_ready, 'director')
+
+      expect(Bosh::Common).to have_received(:retryable) do |args|
+        expect(args[:on_matching]).to include HTTPClient::BadResponseError
+        # also need to match it matches /connect/ as value
+      end
+    end
   end
 end

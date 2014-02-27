@@ -17,8 +17,12 @@ module Bosh::Deployer
       Errno::ECONNREFUSED,
       Errno::ETIMEDOUT,
       DirectorGatewayError,
-      HTTPClient::ConnectTimeoutError
+      HTTPClient::ConnectTimeoutError,
+
     ]
+    FILTERED_CONNECTION_EXCEPTIONS = {
+      HTTPClient::BadResponseError => /connect/
+    }
 
     DEPLOYMENTS_FILE = 'bosh-deployments.yml'
 
@@ -422,6 +426,7 @@ module Bosh::Deployer
         sleep: wait_time,
         tries: retries,
         on: CONNECTION_EXCEPTIONS,
+        on_matching: FILTERED_CONNECTION_EXCEPTIONS
       }
       Bosh::Common.retryable(retry_options) do |tries, e|
         logger.debug("Waiting for #{component} to be ready: #{e.inspect}") if tries > 0

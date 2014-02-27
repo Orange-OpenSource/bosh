@@ -8,6 +8,7 @@ module Bosh
       @ensure_callback = opts[:ensure]
       @matching        = opts[:matching]
       @on_exception    = [opts[:on]].flatten
+      @on_matching_exceptions = opts[:on_matching] || {}
       @try_count       = 0
       @retry_exception = nil
       @retry_limit     = opts[:tries]
@@ -25,6 +26,11 @@ module Bosh
         wait
       end
     rescue *@on_exception => exception
+
+      exception_filter = @on_matching_exceptions[exception.class]
+      if exception_filter
+        raise unless exception.message =~ exception_filter
+      end
       raise unless exception.message =~ @matching
       raise if @try_count >= @retry_limit
 
@@ -50,6 +56,7 @@ module Bosh
         tries: 2,
         sleep: exponential_sleeper,
         on: [],
+        on_matching: {},
         matching: /.*/,
         ensure: Proc.new {}
       }
