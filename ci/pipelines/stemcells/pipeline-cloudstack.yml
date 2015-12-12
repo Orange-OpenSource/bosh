@@ -27,8 +27,10 @@ jobs:
         BOSH_AWS_SECURITY_GROUP:    {{aws_builder_sec_group}}
         BOSH_KEYPAIR_NAME:          {{aws_builder_keypair_name}}
         BOSH_PRIVATE_KEY:           {{aws_builder_private_key}}
-        IAAS: cloudstack
-        HYPERVISOR: hyperv
+
+        #IAAS: cloudstack
+        IAAS: openstack
+        HYPERVISOR: kvm
         OS_NAME: ubuntu
         OS_VERSION: trusty
   - put: candidate-stemcell-ubuntu-trusty
@@ -51,8 +53,13 @@ jobs:
         #BOSH_AWS_SECURITY_GROUP:    {{aws_builder_sec_group}}
         BOSH_KEYPAIR_NAME:          {{aws_builder_keypair_name}}
         BOSH_PRIVATE_KEY:           {{aws_builder_private_key}}
-        IAAS: cloudstack
-        HYPERVISOR: xen
+
+        #IAAS: cloudstack
+        #HYPERVISOR: xen
+        IAAS: openstack
+        HYPERVISOR: kvm 
+
+
         OS_NAME: centos
         OS_VERSION: "7"
   - put: candidate-stemcell-centos-7
