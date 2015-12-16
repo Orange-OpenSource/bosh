@@ -11,6 +11,7 @@ module Bosh::Stemcell
         expect(Infrastructure.for('warden')).to be_a(Infrastructure::Warden)
         expect(Infrastructure.for('vcloud')).to be_a(Infrastructure::Vcloud)
         expect(Infrastructure.for('azure')).to be_a(Infrastructure::Azure)
+        expect(Infrastructure.for('cloudstack')).to be_a(Infrastructure::CloudStack)
         expect(Infrastructure.for('null')).to be_an(Infrastructure::NullInfrastructure)
       end
 
@@ -72,6 +73,7 @@ module Bosh::Stemcell
       expect(subject).to_not eq(Infrastructure.for('aws'))
       expect(subject).to_not eq(Infrastructure.for('vsphere'))
       expect(subject).to_not eq(Infrastructure.for('azure'))
+      expect(subject).to_not eq(Infrastructure.for('cloudstack'))
     end
 
     it 'defaults to no additional cloud properties' do
@@ -99,6 +101,7 @@ module Bosh::Stemcell
     end
   end
 
+
   describe Infrastructure::OpenStack do
     its(:name)              { should eq('openstack') }
     its(:hypervisor)        { should eq('kvm') }
@@ -112,6 +115,24 @@ module Bosh::Stemcell
       expect(subject.additional_cloud_properties).to eq({'auto_disk_config' => true})
     end
   end
+
+  describe Infrastructure::CloudStack do
+    its(:name)              { should eq('cloudstack') }
+    its(:hypervisor)        { should eq('kvm') }
+    its(:default_disk_size) { should eq(3072) }
+    its(:disk_formats) {should eq(['qcow2', 'raw'])}
+
+    it { should eq Infrastructure.for('cloudstack') }
+    it { should_not eq Infrastructure.for('vsphere') }
+
+    it 'has cloudstack specific additional cloud properties' do
+      expect(subject.additional_cloud_properties).to eq({'auto_disk_config' => true})
+    end
+  end
+
+
+
+
 
   describe Infrastructure::Vsphere do
     its(:name)              { should eq('vsphere') }
