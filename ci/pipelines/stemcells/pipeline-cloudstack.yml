@@ -83,7 +83,8 @@ resources:
 - name: bosh-src
   type: git
   source:
-    uri: https://github.com/cloudfoundry/bosh.git
+    #uri: https://github.com/cloudfoundry/bosh.git  <-- should externalize in concourse props
+    uri: https://github.com/Orange-OpenSource/bosh.git
     branch: master
 
 - name: published-stemcell
