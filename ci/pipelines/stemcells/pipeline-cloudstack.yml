@@ -28,8 +28,7 @@ jobs:
         BOSH_KEYPAIR_NAME:          {{aws_builder_keypair_name}}
         BOSH_PRIVATE_KEY:           {{aws_builder_private_key}}
 
-        #IAAS: cloudstack
-        IAAS: openstack
+        IAAS: cloudstack
         HYPERVISOR: kvm
         OS_NAME: ubuntu
         OS_VERSION: trusty
@@ -54,9 +53,8 @@ jobs:
         BOSH_KEYPAIR_NAME:          {{aws_builder_keypair_name}}
         BOSH_PRIVATE_KEY:           {{aws_builder_private_key}}
 
-        #IAAS: cloudstack
+        IAAS: cloudstack
         #HYPERVISOR: xen
-        IAAS: openstack
         HYPERVISOR: kvm 
 
 
