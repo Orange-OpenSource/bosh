@@ -49,6 +49,9 @@ module Bosh::Stemcell
         vsphere_vcloud_stages
       when Infrastructure::Vcloud then
         vsphere_vcloud_stages
+
+      when Infrastructure::CloudStack then
+        cloudstack_stages
       when Infrastructure::Warden then
         warden_stages
       when Infrastructure::Azure then
@@ -100,6 +103,32 @@ module Bosh::Stemcell
         :image_install_grub,
       ]
     end
+
+
+    def cloudstack_stages
+      stages = if is_centos? || is_rhel?
+        [
+          :system_network,
+        ]
+      else
+        [
+          :system_network,
+          :system_openstack_clock,
+          :system_openstack_modules,
+        ]
+      end
+
+      stages += [
+        :system_parameters,
+        :bosh_clean,
+        :bosh_harden,
+        :bosh_openstack_agent_settings,
+        :bosh_clean_ssh,
+        :image_create,
+        :image_install_grub,
+      ]
+    end
+
 
     def vsphere_vcloud_stages
       [
