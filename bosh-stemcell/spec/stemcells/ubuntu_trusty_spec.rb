@@ -63,6 +63,7 @@ describe 'Ubuntu 14.04 stemcell image', stemcell_image: true do
     exclude_on_vsphere: true,
     exclude_on_warden: true,
     exclude_on_openstack: true,
+    exclude_on_cloudstack: true,
   } do
     describe file('/etc/network/interfaces') do
       it { should be_file }
@@ -76,6 +77,7 @@ describe 'Ubuntu 14.04 stemcell image', stemcell_image: true do
     exclude_on_vcloud: true,
     exclude_on_warden: true,
     exclude_on_openstack: true,
+    exclude_on_cloudstack: true,
     exclude_on_azure: true,
   } do
     describe package('open-vm-tools') do
@@ -88,6 +90,7 @@ describe 'Ubuntu 14.04 stemcell image', stemcell_image: true do
     exclude_on_vcloud: true,
     exclude_on_warden: true,
     exclude_on_openstack: true,
+    exclude_on_cloudstack: true,
     exclude_on_azure: true,
   } do
     describe file('/etc/udev/rules.d/60-cdrom_id.rules') do
@@ -120,6 +123,7 @@ HERE
 
   context 'installed by bosh_aws_agent_settings', {
     exclude_on_openstack: true,
+    exclude_on_cloudstack: true,
     exclude_on_vcloud: true,
     exclude_on_vsphere: true,
     exclude_on_warden: true,
@@ -150,6 +154,7 @@ HERE
     exclude_on_aws: true,
     exclude_on_vcloud: true,
     exclude_on_openstack: true,
+    exclude_on_cloudstack: true,
     exclude_on_warden: true,
     exclude_on_azure: true,
   } do
@@ -165,6 +170,7 @@ HERE
     exclude_on_vsphere: true,
     exclude_on_warden: true,
     exclude_on_openstack: true,
+    exclude_on_cloudstack: true,
   } do
     describe file('/var/vcap/bosh/agent.json') do
       it { should be_valid_json_file }
