@@ -122,7 +122,7 @@ module Bosh::Stemcell
         :system_parameters,
         :bosh_clean,
         :bosh_harden,
-        :bosh_openstack_agent_settings,
+        :bosh_cloudstack_agent_settings,
         :bosh_clean_ssh,
         :image_create,
         :image_install_grub,

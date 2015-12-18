@@ -70,7 +70,7 @@ module Bosh::Stemcell
 
     class CloudStack < Base
       def initialize
-        super(name: 'cloudstack', hypervisor: 'xen', default_disk_size: 3072, disk_formats: ['vhd'])
+        super(name: 'cloudstack', hypervisor: 'xen', default_disk_size: 3072, disk_formats: ['vpc'])
       end
 
       def additional_cloud_properties
