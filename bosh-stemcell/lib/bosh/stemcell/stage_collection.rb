@@ -120,6 +120,7 @@ module Bosh::Stemcell
 
       stages += [
         :system_parameters,
+	:system_vhd_utils_tools,
         :bosh_clean,
         :bosh_harden,
         :bosh_cloudstack_agent_settings,
