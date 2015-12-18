@@ -230,9 +230,9 @@ module Bosh::Stemcell
                 :bosh_package_list
               ]
             )
-            expect(stage_collection.package_stemcell_stages('vhd')).to eq(
+            expect(stage_collection.package_stemcell_stages('vpc')).to eq(
                 [
-                :prepare_vhd_image_stemcell,
+                :prepare_vpc_image_stemcell,
               ]
             )
           end
