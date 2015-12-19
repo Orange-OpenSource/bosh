@@ -11,6 +11,7 @@ rm -rf vhd-util-convert
 git clone https://github.com/rubiojr/vhd-util-convert
 cd vhd-util-convert
 make
+#install vhd-util in the vagrant stemcell builder host
 sudo cp vhd-util /usr/local/bin/
 
 

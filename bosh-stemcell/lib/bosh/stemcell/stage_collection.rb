@@ -124,6 +124,7 @@ module Bosh::Stemcell
         :bosh_clean,
         :bosh_harden,
         :bosh_cloudstack_agent_settings,
+        :bosh_cloudstack_vr_metadata,
         :bosh_clean_ssh,
         :image_create,
         :image_install_grub,
