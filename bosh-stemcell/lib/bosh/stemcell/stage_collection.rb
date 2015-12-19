@@ -309,6 +309,7 @@ module Bosh::Stemcell
       [
         :prepare_vhdx_image_stemcell,
       ]
+    end
 
 
     end
