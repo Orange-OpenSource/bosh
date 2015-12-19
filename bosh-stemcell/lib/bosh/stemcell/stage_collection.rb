@@ -304,14 +304,12 @@ module Bosh::Stemcell
       [
         :prepare_vhd_image_stemcell,
       ]
+    end      
 
     def vhdx_package_stages
       [
         :prepare_vhdx_image_stemcell,
       ]
-    end
-
-
     end
 
     def files_package_stages

@@ -8,6 +8,7 @@ source $base_dir/lib/prelude_apply.bash
 sudo apt-get install -y uuid-dev
 cd /tmp
 rm -rf vhd-util-convert 
+#git clone https://github.com/rubiojr/vhd-util-convert
 git clone https://github.com/rubiojr/vhd-util-convert
 cd vhd-util-convert
 make
