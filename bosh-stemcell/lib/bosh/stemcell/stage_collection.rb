@@ -71,6 +71,8 @@ module Bosh::Stemcell
           ovf_package_stages
         when 'vhd' then
           vhd_package_stages
+        when 'vhdx' then
+          vhdx_package_stages
         when 'files' then
           files_package_stages
       end
@@ -302,6 +304,13 @@ module Bosh::Stemcell
       [
         :prepare_vhd_image_stemcell,
       ]
+
+    def vhdx_package_stages
+      [
+        :prepare_vhdx_image_stemcell,
+      ]
+
+
     end
 
     def files_package_stages
