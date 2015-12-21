@@ -26,5 +26,6 @@ faketime '2010-01-01' vhd-util convert -i $work/0.vhd -s 1 -t 2  -o $work/root.v
 vhd-util check -n $work/root.vhd 
 
 pushd $work
-tar zcf stemcell/image root.vhd
+#tar zcf stemcell/image root.vhd
+cp -a root.vhd stemcell/image/
 popd
