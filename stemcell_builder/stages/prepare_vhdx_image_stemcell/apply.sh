@@ -10,16 +10,16 @@ source $base_dir/lib/prelude_apply.bash
 rm -f $work/root.vhd
 rm -f $work/0.vhd 
 
-# targeting xenserver vhd acceptable format
-#qemu-img convert -O vpc -o subformat=dynamic $work/${stemcell_image_name} $work/root.vhd
-
+# targeting xenserver vhd acceptable format. use img => qcow2 => raw
+qemu-img convert -c -O qcow2 $work/${stemcell_image_name} $work/0.qcow2
+qemu-img convert -O raw $work/0.qcow2 $work/0.raw
 
 #add faketime
 sudo apt-get install -y faketime
 
 
 #vhd-utils does only raw => fixed, or fixed => dynamic. chaining 2 conversions
-faketime '2010-01-01' vhd-util convert -i $work/${stemcell_image_name} -s 0 -t 1  -o $work/0.vhd 
+faketime '2010-01-01' vhd-util convert -i $work/0.raw -s 0 -t 1  -o $work/0.vhd 
 faketime '2010-01-01' vhd-util convert -i $work/0.vhd -s 1 -t 2  -o $work/root.vhd 
 
 #Verification: 
