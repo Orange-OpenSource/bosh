@@ -27,5 +27,5 @@ vhd-util check -n $work/root.vhd
 
 pushd $work
 #tar zcf stemcell/image root.vhd
-cp -a root.vhd stemcell/image/
+cp -a ./root.vhd stemcell/image
 popd
