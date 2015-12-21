@@ -19,7 +19,7 @@ sudo apt-get install -y faketime
 
 
 #vhd-utils does only raw => fixed, or fixed => dynamic. chaining 2 conversions
-faketime '2010-01-01' vhd-util convert -i $work/0.raw -s 0 -t 1  -o $work/0.vhd 
+vhd-util convert -i $work/0.raw -s 0 -t 1  -o $work/0.vhd 
 faketime '2010-01-01' vhd-util convert -i $work/0.vhd -s 1 -t 2  -o $work/root.vhd 
 
 #Verification: 
