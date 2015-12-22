@@ -1,10 +1,8 @@
 #!/bin/bash
-
 DHCPSRVIP=$( grep dhcp-server-identifier /var/lib/dhclient/* /var/lib/dhcp3/* /var/lib/dhcp/* 2>/dev/null | awk '{ split($NF,a,";") ; print a[1]|"sort -n | uniq" }' )
 DHCPURI="${DHCPSRVIP}:80"
 
-if ! [[ `iptables-save | grep -w "169.254.169.254"` ]] ; then
-            iptables -t nat -A OUTPUT -p tcp -m tcp --dport 80 -d 169.254.169.254/32 -j DNAT --to-destination ${DHCPURI}
-fi
-#apt-get install –y cloud-init
-#sed –i ‘s/”datasource_list:”/”datasource_list: [\’Cloudstack\’]”/’
+#iptables -t nat -A OUTPUT -p tcp -m tcp --dport 80 -d 169.254.169.254/32 -j DNAT --to-destination ${DHCPURI}
+
+#adapt agent.json to target vrouter
+sed -i /var/vcap/bosh/agent.json -e "s/169.254.169.254/${DHCPSRVIP}/"
