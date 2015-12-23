@@ -14,20 +14,17 @@ cat > $agent_settings_file <<JSON
     }
   },
   "Infrastructure": {
+    "NetworkingType": "dhcp",
     "Settings": {
       "Sources": [
-        {
-          "Type": "File",
-          "SettingsPath": "/var/vcap/bosh/agent-bootstrap-env.json"
-        },
         {
           "Type": "ConfigDrive",
           "DiskPaths": [
             "/dev/disk/by-label/CONFIG-2",
             "/dev/disk/by-label/config-2"
           ],
-          "MetaDataPath": "ec2/latest/meta-data.json",
-          "UserDataPath": "ec2/latest/user-data"
+          "MetaDataPath": "latest/meta-data",
+          "UserDataPath": "latest/user-data"
         },
         {
           "Type": "HTTP",
@@ -38,6 +35,7 @@ cat > $agent_settings_file <<JSON
       "UseServerName": true,
       "UseRegistry": true
     }
+
   }
 }
 JSON
