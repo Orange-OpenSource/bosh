@@ -115,7 +115,6 @@ module Bosh::Stemcell
       else
         [
           :system_network,
-          :system_openstack_clock,
           :system_openstack_modules,
         ]
       end

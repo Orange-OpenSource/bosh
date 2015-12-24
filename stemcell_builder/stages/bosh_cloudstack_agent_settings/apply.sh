@@ -24,7 +24,7 @@ cat > $agent_settings_file <<JSON
       "Sources": [
         {
           "Type": "HTTP",
-          "URI": "http://169.254.169.254"
+          "URI": "http://VROUTER_IP"
         }
       ],
 
