@@ -5,6 +5,12 @@ source $base_dir/lib/prelude_apply.bash
 
 agent_settings_file=$chroot/var/vcap/bosh/agent.json
 
+
+#source is http registry
+#key to find instance in registry is servername
+#for cloudstack, infrastructure networking is dhcp (set by registry, use_dhcp=true
+
+
 cat > $agent_settings_file <<JSON
 {
   "Platform": {
