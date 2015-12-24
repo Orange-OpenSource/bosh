@@ -174,7 +174,8 @@ resources:
   - name: bosh-src
     type: git
     source:
-      uri: https://github.com/cloudfoundry/bosh.git
+      #uri: https://github.com/cloudfoundry/bosh.git
+      uri: https://github.com/Orange-OpenSource/bosh.git
       branch: {{branch}}
 
   - name: bosh-candidate
