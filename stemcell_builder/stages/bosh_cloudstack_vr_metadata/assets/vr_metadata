@@ -1,20 +1,15 @@
-#!/bin/bash
-
+#!/bin/sh
+set -e
+PATH=/sbin:/bin:/usr/sbin:/usr/bin
 
 #http://linux.die.net/man/8/dhclient-script
+echo "Retrieving vrouter IP..." >>/var/log/vr-metadata.log
+DHCPSRVIP=$( grep dhcp-server-identifier /var/lib/dhclient/* /var/lib/dhcp3/* /var/lib/dhcp/* 2>/dev/null | awk '{ split($NF,a,";") ; print a[1]|"sort -n | uniq" }' )
 
-#while [ -z "$DHCPSRVIP" ]
-#do
-  echo "Retrieving vrouter IP..." >>/var/log/vr-metadata.log
-  DHCPSRVIP=$( grep dhcp-server-identifier /var/lib/dhclient/* /var/lib/dhcp3/* /var/lib/dhcp/* 2>/dev/null | awk '{ split($NF,a,";") ; print a[1]|"sort -n | uniq" }' )
-  sleep 1
-#done
 echo "vrouter IP: $DHCPSRVIP" >>/var/log/vr-metadata.log 
-
 #adapt agent.json to target vrouter
-echo "Updating /var/vcap/bosh/agent.json" >>/var/log/vr-metadata.log
-
+#echo "Updating /var/vcap/bosh/agent.json" >>/var/log/vr-metadata.log
 #sed -i /var/vcap/bosh/agent.json -e "s/VROUTER_IP/${DHCPSRVIP}/"
-iptables -t nat -A OUTPUT -p tcp -m tcp --dport 80 -d 169.254.169.254/32 -j DNAT --to-destination ${DHCPSRVIP"}
 
+iptables -t nat -A OUTPUT -p tcp -m tcp --dport 80 -d 169.254.169.254/32 -j DNAT --to-destination ${DHCPSRVIP}
 echo "All done" >>/var/log/vr-metadata.log
