@@ -3,7 +3,9 @@
 require "trollop"
 require "bosh/release"
 
-CPIS = %w[aws openstack vcloud vsphere warden azure softlayer]
+
+CPIS = %w[aws openstack vcloud vsphere warden azure softlayer cloudstack]
+
 COMMANDS = %w[apply compile]
 
 def usage(msg=nil)
