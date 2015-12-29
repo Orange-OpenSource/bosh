@@ -48,8 +48,8 @@ jobs:
       params:
         BOSH_AWS_ACCESS_KEY_ID:     {{aws_builder_access_key}}
         BOSH_AWS_SECRET_ACCESS_KEY: {{aws_builder_secret_access_key}}
-        #BOSH_AWS_SUBNET_ID:         {{aws_builder_subnet_id}}
-        #BOSH_AWS_SECURITY_GROUP:    {{aws_builder_sec_group}}
+        BOSH_AWS_SUBNET_ID:         {{aws_builder_subnet_id}}
+        BOSH_AWS_SECURITY_GROUP:    {{aws_builder_sec_group}}
         BOSH_KEYPAIR_NAME:          {{aws_builder_keypair_name}}
         BOSH_PRIVATE_KEY:           {{aws_builder_private_key}}
 
@@ -81,8 +81,8 @@ resources:
   type: git
   source:
     #uri: https://github.com/cloudfoundry/bosh.git  <-- should externalize in concourse props
-    uri: https://github.com/Orange-OpenSource/bosh.git
-    branch: master
+    uri: {{bosh-repo}}
+    branch: {{branch}}
 
 - name: published-stemcell
   type: bosh-io-stemcell
