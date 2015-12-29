@@ -311,6 +311,7 @@ shared_examples_for 'every OS image' do
       exclude_on_vcloud: true,
       exclude_on_warden: true,
       exclude_on_softlayer: true,
+      exclude_on_cloudstack: true
     } do
       it 'disallows password authentication' do
         expect(sshd_config).to contain(/^PasswordAuthentication no$/)
