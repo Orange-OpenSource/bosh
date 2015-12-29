@@ -3,8 +3,7 @@ resources:
   - name: bosh-src
     type: git
     source:
-      #uri: https://github.com/cloudfoundry/bosh.git
-      uri: https://github.com/Orange-OpenSource/bosh.git
+      uri: {{bosh-repo}}
       branch: {{branch}}
 
 jobs:
