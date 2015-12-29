@@ -79,6 +79,9 @@ shared_examples_for 'a CentOS 7 or RHEL 7 stemcell' do
     exclude_on_vsphere: true,
     exclude_on_warden: true,
     exclude_on_openstack: true,
+    exclude_on_cloudstack: true,
+
+
   } do
     describe file('/etc/sysconfig/network') do
       it { should be_file }
@@ -103,6 +106,8 @@ shared_examples_for 'a CentOS 7 or RHEL 7 stemcell' do
     exclude_on_vsphere: true,
     exclude_on_warden: true,
     exclude_on_azure: true,
+    exclude_on_cloudstack: true,
+
   } do
     describe file('/var/vcap/bosh/agent.json') do
       it { should be_valid_json_file }
@@ -116,6 +121,8 @@ shared_examples_for 'a CentOS 7 or RHEL 7 stemcell' do
     exclude_on_openstack: true,
     exclude_on_warden: true,
     exclude_on_azure: true,
+    exclude_on_cloudstack: true,
+
    } do
     describe file('/var/vcap/bosh/agent.json') do
       it { should be_valid_json_file }
@@ -129,6 +136,8 @@ shared_examples_for 'a CentOS 7 or RHEL 7 stemcell' do
     exclude_on_vsphere: true,
     exclude_on_warden: true,
     exclude_on_openstack: true,
+    exclude_on_cloudstack: true,
+
   } do
     describe file('/var/vcap/bosh/agent.json') do
       it { should be_valid_json_file }
