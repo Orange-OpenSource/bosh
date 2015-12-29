@@ -70,6 +70,7 @@ describe 'Ubuntu 14.04 stemcell image', stemcell_image: true do
     exclude_on_warden: true,
     exclude_on_openstack: true,
     exclude_on_softlayer: true,
+    exclude_on_cloudstack: true,
   } do
     describe file('/etc/network/interfaces') do
       it { should be_file }
@@ -83,6 +84,7 @@ describe 'Ubuntu 14.04 stemcell image', stemcell_image: true do
     exclude_on_vcloud: true,
     exclude_on_warden: true,
     exclude_on_openstack: true,
+    exclude_on_cloudstack: true,
     exclude_on_azure: true,
     exclude_on_softlayer: true,
   } do
@@ -122,6 +124,7 @@ describe 'Ubuntu 14.04 stemcell image', stemcell_image: true do
     exclude_on_vcloud: true,
     exclude_on_warden: true,
     exclude_on_openstack: true,
+    exclude_on_cloudstack: true,
     exclude_on_azure: true,
     exclude_on_softlayer: true,
   } do
@@ -155,6 +158,7 @@ HERE
 
   context 'installed by bosh_aws_agent_settings', {
     exclude_on_openstack: true,
+    exclude_on_cloudstack: true,
     exclude_on_vcloud: true,
     exclude_on_vsphere: true,
     exclude_on_warden: true,
@@ -174,6 +178,7 @@ HERE
     exclude_on_warden: true,
     exclude_on_azure: true,
     exclude_on_softlayer: true,
+    exclude_on_cloudstack: true,
   } do
     describe file('/var/vcap/bosh/agent.json') do
       it { should be_valid_json_file }
@@ -183,10 +188,28 @@ HERE
     end
   end
 
+  context 'installed by bosh_cloudstack_agent_settings', {
+    exclude_on_aws: true,
+    exclude_on_vcloud: true,
+    exclude_on_vsphere: true,
+    exclude_on_warden: true,
+    exclude_on_azure: true,
+    exclude_on_openstack: true,
+  } do
+    describe file('/var/vcap/bosh/agent.json') do
+      it { should be_valid_json_file }
+      it { should contain('"CreatePartitionIfNoEphemeralDisk": true') }
+      it { should contain('"Type": "HTTP"') }
+    end
+  end
+
+
+
   context 'installed by bosh_vsphere_agent_settings', {
     exclude_on_aws: true,
     exclude_on_vcloud: true,
     exclude_on_openstack: true,
+    exclude_on_cloudstack: true,
     exclude_on_warden: true,
     exclude_on_azure: true,
     exclude_on_softlayer: true,
@@ -204,6 +227,7 @@ HERE
     exclude_on_warden: true,
     exclude_on_openstack: true,
     exclude_on_softlayer: true,
+    exclude_on_cloudstack: true,
   } do
     describe file('/var/vcap/bosh/agent.json') do
       it { should be_valid_json_file }

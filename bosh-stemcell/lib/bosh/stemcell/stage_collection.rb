@@ -49,6 +49,9 @@ module Bosh::Stemcell
         vsphere_vcloud_stages
       when Infrastructure::Vcloud then
         vsphere_vcloud_stages
+
+      when Infrastructure::CloudStack then
+        cloudstack_stages
       when Infrastructure::Warden then
         warden_stages
       when Infrastructure::Azure then
@@ -70,6 +73,8 @@ module Bosh::Stemcell
           ovf_package_stages
         when 'vhd' then
           vhd_package_stages
+        when 'vhdx' then
+          vhdx_package_stages
         when 'files' then
           files_package_stages
       end
@@ -102,6 +107,34 @@ module Bosh::Stemcell
         :image_install_grub,
       ]
     end
+
+
+    def cloudstack_stages
+      stages = if is_centos? || is_rhel?
+        [
+          :system_network,
+        ]
+      else
+        [
+          :system_network,
+          :system_openstack_modules,
+        ]
+      end
+
+      stages += [
+        :system_parameters,
+	    :system_vhd_utils_tools,
+        :bosh_clean,
+        :bosh_harden,
+        :bosh_enable_password_authentication,
+        :bosh_cloudstack_agent_settings,
+        :bosh_cloudstack_vr_metadata,
+        :bosh_clean_ssh,
+        :image_create,
+        :image_install_grub,
+      ]
+    end
+
 
     def vsphere_vcloud_stages
       [
@@ -289,6 +322,12 @@ module Bosh::Stemcell
     def vhd_package_stages
       [
         :prepare_vhd_image_stemcell,
+      ]
+    end      
+
+    def vhdx_package_stages
+      [
+        :prepare_vhdx_image_stemcell,
       ]
     end
 
