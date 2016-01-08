@@ -29,11 +29,10 @@ add_on_exit "umount $iso_mount_path"
 
 
 #extract and copy tools
-cp $iso_mount_path/Linux/xe-guest-utilities_6.2.0-1137_i386.deb $chroot/tmp
+cp $iso_mount_path/Linux/xe-guest-utilities_6.2.0-1137_amd64.deb $chroot/tmp
 
 #install tools in chroot
-run_in_chroot $chroot "sudo dpkg -i /tmp/xe-guest-utilities_6.2.0-1137_i386.deb"
+run_in_chroot $chroot "sudo dpkg -i /tmp/xe-guest-utilities_6.2.0-1137_amd64.deb"
 
-#dpkg -i xe-guest-utilities_6.2.0.-1137_amd64.deb
 
 
