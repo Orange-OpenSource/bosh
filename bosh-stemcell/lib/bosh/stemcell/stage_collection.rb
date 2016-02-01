@@ -118,14 +118,16 @@ module Bosh::Stemcell
         [
           :system_network,
           :system_openstack_modules,
-          :bosh_cloudstack_ubuntu_vr_metadata,          
+          :bosh_cloudstack_ubuntu_vr_metadata,
+		  :system_ubuntu_xen_tools,          
+                    
         ]
       end
 
       stages += [
         :system_parameters,
 	:system_vhd_utils_tools,
-	:system_xen_tools,
+	
         :bosh_clean,
         :bosh_harden,
         :bosh_enable_password_authentication,
