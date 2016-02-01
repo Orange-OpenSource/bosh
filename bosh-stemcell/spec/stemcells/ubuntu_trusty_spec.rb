@@ -100,6 +100,7 @@ describe 'Ubuntu 14.04 stemcell image', stemcell_image: true do
       exclude_on_warden: true,
       exclude_on_openstack: true,
       exclude_on_azure: true,
+      exclude_on_cloudstack: true,
   } do
     describe package('open-iscsi') do
       it { should be_installed }
@@ -113,6 +114,7 @@ describe 'Ubuntu 14.04 stemcell image', stemcell_image: true do
       exclude_on_warden: true,
       exclude_on_openstack: true,
       exclude_on_azure: true,
+      exclude_on_cloudstack: true,
   } do
     describe package('multipath-tools') do
       it { should be_installed }
@@ -247,6 +249,8 @@ HERE
       exclude_on_warden: true,
       exclude_on_azure: true,
       exclude_on_openstack: true,
+      exclude_on_cloudstack: true,
+
   } do
     describe file('/var/vcap/bosh/agent.json') do
       it { should be_valid_json_file }
