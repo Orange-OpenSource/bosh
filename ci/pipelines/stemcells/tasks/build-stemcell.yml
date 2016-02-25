@@ -1,6 +1,7 @@
 ---
 platform: linux
-image: docker:///cloudfoundry/bosh-lite-ci
+#image: docker:///cloudfoundry/bosh-lite-ci
+image: docker:///bosh/os-image-stemcell-builder
 inputs:
 - name: bosh-src
 - name: stemcell-version
