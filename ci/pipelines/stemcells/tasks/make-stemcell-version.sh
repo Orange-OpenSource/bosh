@@ -4,4 +4,7 @@ set -e -x
 
 [ -f published-stemcell/version ] || exit 1
 
-echo "$(cat published-stemcell/version).0.0" > semver
+
+mkdir -p out
+
+echo "$(cat published-stemcell/version).0.0" > out/semver

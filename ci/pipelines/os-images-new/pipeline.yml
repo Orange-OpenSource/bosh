@@ -56,7 +56,7 @@ resources:
   - name: bosh-src
     type: git
     source:
-      uri: https://github.com/cloudfoundry/bosh.git
+      uri: {{bosh-repo}}
       branch: {{branch}}
 
   #
