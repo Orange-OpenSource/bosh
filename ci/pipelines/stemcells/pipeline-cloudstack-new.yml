@@ -2,6 +2,7 @@
 groups:
   - name: all
     jobs:
+      - new-version
       - build-stemcell
       - publish-stemcells
       - build-cloudstack-xen-centos-7
@@ -12,6 +13,19 @@ groups:
       - build-cloudstack-xen-centos-7
 
 jobs:
+
+  - name: new-version
+    plan:
+    - get: published-stemcell
+      trigger: true
+    - get: bosh-src
+    - task: make-version
+      file: bosh-src/ci/pipelines/stemcells/tasks/make-stemcell-version.yml
+    - put: version
+      params: {file: out/semver}
+
+
+
   - name: build-stemcell
     serial: true
     plan:
@@ -20,11 +34,12 @@ jobs:
       - get: centos-7-os-image
       - get: bosh-release
       - get: version
-        params:
-          bump: major
-      - put: version
-        params:
-          file: version/number
+        passed: [new-version]
+#        params:
+#          bump: major
+#      - put: version
+#        params:
+#          file: version/number
 
   - name: publish-stemcells
     serial: true
@@ -133,6 +148,13 @@ resources:
       bucket: {{stemcell_bucket}}
       access_key_id: {{stemcell_aws_access_key}}
       secret_access_key: {{stemcell_aws_secret_key}}
+      
+      
+  - name: published-stemcell
+    type: bosh-io-stemcell
+    source:
+      name: bosh-aws-xen-hvm-ubuntu-trusty-go_agent
+      tarball: false
 
   - name: bosh-release
     type: bosh-io-release
@@ -142,7 +164,6 @@ resources:
   #
   # os-images
   #
-
   - name: ubuntu-trusty-os-image
     type: s3
     source:
