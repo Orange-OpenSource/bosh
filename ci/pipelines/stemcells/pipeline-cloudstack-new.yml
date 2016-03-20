@@ -33,6 +33,7 @@ jobs:
       - get: centos-7-os-image
       - get: bosh-release
       - get: version
+        passed: [new-version]
         params:
           bump: major
       - put: version
