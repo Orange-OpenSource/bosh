@@ -2,6 +2,7 @@
 groups:
   - name: all
     jobs:
+      - new-version
       - build-stemcell
       - publish-stemcells
       - build-cloudstack-xen-centos-7
@@ -34,11 +35,11 @@ jobs:
       - get: bosh-release
       - get: version
         passed: [new-version]
-        params:
-          bump: major
-      - put: version
-        params:
-          file: version/number
+#        params:
+#          bump: major
+#      - put: version
+#        params:
+#          file: version/number
 
   - name: publish-stemcells
     serial: true
