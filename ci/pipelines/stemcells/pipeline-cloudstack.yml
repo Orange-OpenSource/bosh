@@ -17,21 +17,16 @@ jobs:
   - get: stemcell-version
     passed: [new-version]
     trigger: true
-  - task: build
-    file: bosh-src/ci/pipelines/stemcells/tasks/build-stemcell.yml
-    config:
-      params:
-        BOSH_AWS_ACCESS_KEY_ID:     {{aws_builder_access_key}}
-        BOSH_AWS_SECRET_ACCESS_KEY: {{aws_builder_secret_access_key}}
-        BOSH_AWS_SUBNET_ID:         {{aws_builder_subnet_id}}
-        BOSH_AWS_SECURITY_GROUP:    {{aws_builder_sec_group}}
-        BOSH_KEYPAIR_NAME:          {{aws_builder_keypair_name}}
-        BOSH_PRIVATE_KEY:           {{aws_builder_private_key}}
-
-        IAAS: cloudstack
-        HYPERVISOR: xen 
-        OS_NAME: ubuntu
-        OS_VERSION: trusty
+    
+  - task: create-stemcell
+    file: bosh-src/ci/pipelines/stemcell/tasks/build.yml
+    privileged: true
+    params:
+      IAAS:       cloudstack
+      HYPERVISOR: xen
+      OS_NAME:    ubuntu
+      OS_VERSION: trusty
+    
   - put: candidate-stemcell-ubuntu-trusty
     params: {from: build/out/.+\.tgz}
 
@@ -42,23 +37,15 @@ jobs:
   - get: stemcell-version
     passed: [new-version]
     trigger: true
-  - task: build
-    file: bosh-src/ci/pipelines/stemcells/tasks/build-stemcell.yml
-    config:
-      params:
-        BOSH_AWS_ACCESS_KEY_ID:     {{aws_builder_access_key}}
-        BOSH_AWS_SECRET_ACCESS_KEY: {{aws_builder_secret_access_key}}
-        BOSH_AWS_SUBNET_ID:         {{aws_builder_subnet_id}}
-        BOSH_AWS_SECURITY_GROUP:    {{aws_builder_sec_group}}
-        BOSH_KEYPAIR_NAME:          {{aws_builder_keypair_name}}
-        BOSH_PRIVATE_KEY:           {{aws_builder_private_key}}
 
-        IAAS: cloudstack
-        HYPERVISOR: xen
-
-
-        OS_NAME: centos
-        OS_VERSION: "7"
+  - task: create-stemcell
+    file: bosh-src/ci/pipelines/stemcell/tasks/build.yml
+    privileged: true
+    params:
+      IAAS:       cloudstack
+      HYPERVISOR: xen
+      OS_NAME:    centos
+      OS_VERSION: "7"
   - put: candidate-stemcell-centos-7
     params: {from: build/out/.+\.tgz}
 
