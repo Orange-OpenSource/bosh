@@ -131,8 +131,7 @@ module Bosh::Stemcell
 
       stages += [
         :system_parameters,
-	:system_vhd_utils_tools,
-	
+	    :system_vhd_utils_tools,
         :bosh_clean,
         :bosh_harden,
         :bosh_enable_password_authentication,
