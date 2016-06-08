@@ -265,6 +265,38 @@ module Bosh::Stemcell
           end
         end
 
+
+      context 'when using CloudStack' do
+        let(:infrastructure) { Infrastructure.for('cloudstack') }
+
+        context 'when the operating system is CentOS' do
+          let(:operating_system) { OperatingSystem.for('centos') }
+
+          it 'has the correct stages' do
+            expect(stage_collection.build_stemcell_image_stages).to eq(
+              [
+                :system_network,
+                :system_parameters,
+                :bosh_clean,
+                :bosh_harden,
+                :bosh_openstack_agent_settings,
+                :bosh_clean_ssh,
+                :image_create,
+                :image_install_grub,
+                :bosh_package_list
+              ]
+            )
+            expect(stage_collection.package_stemcell_stages('vhdx')).to eq(
+                [
+                :prepare_vhdx_image_stemcell,
+              ]
+            )
+          end
+        end
+
+
+
+
         context 'when the operating system is Ubuntu' do
           let(:operating_system) { OperatingSystem.for('ubuntu') }
 
