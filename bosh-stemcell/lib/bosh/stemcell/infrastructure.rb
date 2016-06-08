@@ -18,6 +18,8 @@ module Bosh::Stemcell
           Azure.new
         when 'softlayer'
           Softlayer.new
+        when 'cloudstack'
+          CloudStack.new
         when 'null'
           NullInfrastructure.new
         else
@@ -57,6 +59,7 @@ module Bosh::Stemcell
       end
     end
 
+
     class OpenStack < Base
       def initialize
         super(name: 'openstack', hypervisor: 'kvm', default_disk_size: 3072, disk_formats: ['qcow2', 'raw'])
@@ -66,6 +69,20 @@ module Bosh::Stemcell
         {'auto_disk_config' => true}
       end
     end
+
+
+
+    class CloudStack < Base
+      def initialize
+        super(name: 'cloudstack', hypervisor: 'xen', default_disk_size: 3072, disk_formats: ['vhdx'])
+      end
+
+      def additional_cloud_properties
+        {'auto_disk_config' => true}
+      end
+    end
+
+
 
     class Vsphere < Base
       def initialize

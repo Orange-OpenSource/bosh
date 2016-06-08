@@ -13,6 +13,7 @@ module Bosh::Stemcell
         expect(Infrastructure.for('vcloud')).to be_a(Infrastructure::Vcloud)
         expect(Infrastructure.for('azure')).to be_a(Infrastructure::Azure)
         expect(Infrastructure.for('softlayer')).to be_a(Infrastructure::Softlayer)
+        expect(Infrastructure.for('cloudstack')).to be_a(Infrastructure::CloudStack)
         expect(Infrastructure.for('null')).to be_an(Infrastructure::NullInfrastructure)
       end
 
@@ -129,6 +130,24 @@ module Bosh::Stemcell
       expect(subject.additional_cloud_properties).to eq({'auto_disk_config' => true})
     end
   end
+
+  describe Infrastructure::CloudStack do
+    its(:name)              { should eq('cloudstack') }
+    its(:hypervisor)        { should eq('xen') }
+    its(:default_disk_size) { should eq(3072) }
+    its(:disk_formats) {should eq(['vhdx'])}
+
+    it { should eq Infrastructure.for('cloudstack') }
+    it { should_not eq Infrastructure.for('vsphere') }
+
+    it 'has cloudstack specific additional cloud properties' do
+      expect(subject.additional_cloud_properties).to eq({'auto_disk_config' => true})
+    end
+  end
+
+
+
+
 
   describe Infrastructure::Vsphere do
     its(:name)              { should eq('vsphere') }
