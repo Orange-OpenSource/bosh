@@ -17,8 +17,18 @@ describe 'CloudStack Stemcell', stemcell_image: true do
         `#{cmd}`
       end
 
-      # it { should include('compat: 0.10') }
+      it {
+        compat = Bosh::Stemcell::Arch.ppc64le? ? '1.1' : '0.10'
+        should include("compat: #{compat}") 
+      }
     end
   end
 
+  context 'installed by bosh_disable_password_authentication' do
+    describe 'disallows password authentication' do
+      subject { file('/etc/ssh/sshd_config') }
+
+      it { should contain /^PasswordAuthentication no$/ }
+    end
+  end
 end
