@@ -21,12 +21,11 @@ echo "Mounting xenserver iso from at $iso_mount_path"
 mount -o loop -t iso9660 ${work}/xenserver/xs-tools-6.5.0-20200.iso $iso_mount_path
 add_on_exit "umount $iso_mount_path"
 
-
 #extract and copy tools
-cp $iso_mount_path/Linux/xe-guest-utilities_*.deb $chroot/tmp
-cp $iso_mount_path/Linux/install.sh $chroot/tmp
+cp -R $iso_mount_path/Linux/ $chroot/tmp
+#cp $iso_mount_path/Linux/install.sh $chroot
 
 
 #install tools in chroot
 #run_in_chroot $chroot "sudo dpkg -i /tmp/xe-guest-utilities_6.5.0-1427_amd64.deb"
-run_in_chroot $chroot "sudo dpkg -i /tmp/install.sh"
+run_in_chroot $chroot "sudo /tmp/Linux/install.sh"
