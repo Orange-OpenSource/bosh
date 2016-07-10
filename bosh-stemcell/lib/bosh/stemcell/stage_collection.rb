@@ -134,7 +134,6 @@ module Bosh::Stemcell
 	    :system_vhd_utils_tools,
         :bosh_clean,
         :bosh_harden,
-        :bosh_enable_password_authentication,
         :bosh_cloudstack_agent_settings,
         :bosh_clean_ssh,
         :image_create,
