@@ -7,22 +7,6 @@ describe 'CloudStack Stemcell', stemcell_image: true do
     end
   end
 
-  context 'installed by package_vhd_image stage' do
-    describe 'converts to vhd' do
-      # environment is cleaned up inside rspec context
-      stemcell_image = ENV['STEMCELL_IMAGE']
-
-      subject do
-        cmd = "qemu-img info #{File.join(File.dirname(stemcell_image), 'root.vhd')}"
-        `#{cmd}`
-      end
-
-      it {
-        compat = Bosh::Stemcell::Arch.ppc64le? ? '1.1' : '0.10'
-        should include("compat: #{compat}") 
-      }
-    end
-  end
 
   context 'installed by bosh_disable_password_authentication' do
     describe 'disallows password authentication' do
