@@ -23,9 +23,9 @@ add_on_exit "umount $iso_mount_path"
 
 #extract and copy tools
 cp -R $iso_mount_path/Linux/ $chroot/tmp
-#cp $iso_mount_path/Linux/install.sh $chroot
 
 
 #install tools in chroot
 #run_in_chroot $chroot "sudo dpkg -i /tmp/xe-guest-utilities_6.5.0-1427_amd64.deb"
 run_in_chroot $chroot "sudo /tmp/Linux/install.sh"
+run_in_chroot $chroot "sudo touch /proc/xen/xenbus"
