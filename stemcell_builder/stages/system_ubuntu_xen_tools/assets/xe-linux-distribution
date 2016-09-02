@@ -2,6 +2,7 @@
 #
 # xe-linux-distribution	Write Linux distribution information to XenStore.
 #
+# => patched for bosh stemcell compat
 # chkconfig: 2345 14 86
 # description: Writes Linux distribution version information to XenStore.
 #
