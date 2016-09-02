@@ -28,4 +28,5 @@ cp -R $iso_mount_path/Linux/ $chroot/tmp
 #install tools in chroot
 #run_in_chroot $chroot "sudo dpkg -i /tmp/xe-guest-utilities_6.5.0-1427_amd64.deb"
 run_in_chroot $chroot "sudo /tmp/Linux/install.sh"
-run_in_chroot $chroot "sudo touch /proc/xen/xenbus"
+cp -f $(dirname $0)/assets/xe-linux-distribution $chroot/etc/init.d
+run_in_chroot $chroot "sudo chmod ugo+x /etc/init.d/xe-linux-distribution"
