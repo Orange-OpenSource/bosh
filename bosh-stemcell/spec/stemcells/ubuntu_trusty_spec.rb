@@ -238,7 +238,6 @@ HERE
   end
 
 
-
   context 'installed by bosh_vsphere_agent_settings', {
     exclude_on_aws: true,
     exclude_on_google: true,
@@ -252,30 +251,6 @@ HERE
     describe file('/var/vcap/bosh/agent.json') do
       it { should be_valid_json_file }
       it { should contain('"Type": "CDROM"') }
-<<<<<<< Upstream, based on stable-3262.16
-=======
-    end
-  end
-
-  context 'installed by bosh_azure_agent_settings', {
-    exclude_on_aws: true,
-    exclude_on_google: true,
-    exclude_on_vcloud: true,
-    exclude_on_vsphere: true,
-    exclude_on_warden: true,
-    exclude_on_openstack: true,
-    exclude_on_softlayer: true,
-    exclude_on_cloudstack: true,
-  } do
-    describe file('/var/vcap/bosh/agent.json') do
-      it { should be_valid_json_file }
-      it { should contain('"Type": "File"') }
-      it { should contain('"MetaDataPath": ""') }
-      it { should contain('"UserDataPath": "/var/lib/waagent/CustomData"') }
-      it { should contain('"SettingsPath": "/var/lib/waagent/CustomData"') }
-      it { should contain('"UseServerName": true') }
-      it { should contain('"UseRegistry": true') }
->>>>>>> f203e26 cloudstack stemcell manual rebase
     end
   end
 
@@ -287,8 +262,7 @@ HERE
       exclude_on_warden: true,
       exclude_on_azure: true,
       exclude_on_openstack: true,
-      exclude_on_cloudstack: true,
-
+      exclude_on_cloudstack: true,      
   } do
     describe file('/var/vcap/bosh/agent.json') do
       it { should be_valid_json_file }
