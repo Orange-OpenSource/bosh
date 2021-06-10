@@ -115,7 +115,7 @@ module Bosh::Director
       end
 
       def model_for_cpi(cpi_aliases)
-        @logger.info("models: #{@models.inpect}")
+        @logger.info("models: #{@models.each{|m| m.inpect}}")
         stemcell = @models.find { |m| m.cpi == cpi_aliases[0] }
         stemcell = @models.find { |m| cpi_aliases.include?(m.cpi) } if stemcell.nil? && cpi_aliases.length > 1
         if stemcell.nil?
