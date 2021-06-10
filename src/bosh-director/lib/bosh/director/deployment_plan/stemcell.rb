@@ -51,9 +51,11 @@ module Bosh::Director
 
       def add_stemcell_models
         if is_using_os?
+          @logger.info("use all_by_os_and_version")
           @models = @manager.all_by_os_and_version(@os, @version)
           raise StemcellNotFound, "Stemcell version '#{@version}' for OS '#{@os}' doesn't exist" if models.empty?
         else
+          @logger.info("use all_by_name_and_version")
           @models = @manager.all_by_name_and_version(@name, @version)
           raise StemcellNotFound, "Stemcell '#{@name}/#{@version}' doesn't exist" if models.empty?
         end
@@ -115,7 +117,7 @@ module Bosh::Director
       end
 
       def model_for_cpi(cpi_aliases)
-        @logger.info("models: #{@models.each{|m| m.inpect}}")
+        @logger.info("models: #{@models.each{|m| m.inspect}}")
         stemcell = @models.find { |m| m.cpi == cpi_aliases[0] }
         stemcell = @models.find { |m| cpi_aliases.include?(m.cpi) } if stemcell.nil? && cpi_aliases.length > 1
         if stemcell.nil?
