@@ -33,6 +33,7 @@ module Bosh::Director
         @os = os
         @version = version
         @manager = Api::StemcellManager.new
+        @logger = Config.logger
       end
 
       def is_using_os?
@@ -93,12 +94,15 @@ module Bosh::Director
 
         # stemcell might have no AZ, pick default model then
         return model_for_default_cpi if availability_zone.nil?
-
+        @logger.info("availability_zone: #{availability_zone}")
         cpi_name = cloud_factory.get_name_for_az(availability_zone)
+        @logger.info("cpi_name: #{cpi_name}")
+
 
         # stemcell might have AZ without cpi, pick default model then
         return model_for_default_cpi if cpi_name.nil?
 
+        @logger.info("cloud_factory.get_cpi_aliases(cpi_name): #{cloud_factory.get_cpi_aliases(cpi_name).inspect}")
         model_for_cpi(cloud_factory.get_cpi_aliases(cpi_name))
       end
 
