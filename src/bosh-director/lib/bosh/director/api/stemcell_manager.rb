@@ -75,6 +75,7 @@ module Bosh::Director
 
       def all_by_os_and_version(os, version)
         @logger = Config.logger
+        @logger.info("os: #{os} - version: #{version})
         @logger.info("all_by_os_and_version:" + Bosh::Director::Models::Stemcell.dataset.all.each { |s| s.inspect })
         Bosh::Director::Models::Stemcell.dataset
           .order(:name)
