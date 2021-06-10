@@ -39,7 +39,7 @@ module Bosh::Director
 
       cpi_config = get_cpi_config(cpi_name)
       @logger.info("cpi_name: #{cpi_name}")
-      @logger.info("cpi_config.migrated_from_names: #{cpi_config.migrated_from_names)}")
+      @logger.info("cpi_config.migrated_from_names: #{cpi_config.migrated_from_names}")
       [cpi_name] + cpi_config.migrated_from_names
     end
 
