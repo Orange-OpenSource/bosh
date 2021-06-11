@@ -86,11 +86,12 @@ module Bosh
             plan_options,
             manifest_hash.fetch('properties', {}),
           )
-          @logger.info("ORANGE-cloud_manifest: #{cloud_manifest.inspect}")
+          @logger.info("ORANGE - cloud_manifest: #{cloud_manifest.inspect}")
           deployment.cloud_planner = CloudManifestParser.new(@logger).parse(cloud_manifest)
 
-          @logger.info("ORANGE-deployment.cloud_planner: #{deployment.cloud_planner.inspect}")
+          @logger.info("ORANGE - deployment: #{deployment.inspect}")
           DeploymentSpecParser.new(deployment, Config.event_log, @logger).parse(manifest_hash, plan_options)
+          @logger.info("ORANGE - DeploymentSpecParser deployment : #{deployment.inspect}")
 
           unless deployment.addons.empty?
             deployment.addons.each do |addon|
