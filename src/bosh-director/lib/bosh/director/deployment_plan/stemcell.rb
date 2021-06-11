@@ -51,11 +51,11 @@ module Bosh::Director
 
       def add_stemcell_models
         if is_using_os?
-          @logger.info("use all_by_os_and_version")
+          @logger.info("ORANGE - use all_by_os_and_version")
           @models = @manager.all_by_os_and_version(@os, @version)
           raise StemcellNotFound, "Stemcell version '#{@version}' for OS '#{@os}' doesn't exist" if models.empty?
         else
-          @logger.info("use all_by_name_and_version")
+          @logger.info("ORANGE - use all_by_name_and_version")
           @models = @manager.all_by_name_and_version(@name, @version)
           raise StemcellNotFound, "Stemcell '#{@name}/#{@version}' doesn't exist" if models.empty?
         end
@@ -94,17 +94,18 @@ module Bosh::Director
         raise 'please bind model first' if @models.nil?
         raise StemcellNotFound, 'No stemcell found' if @models.empty?
 
+        @logger.info("ORANGE - availability_zone: #{availability_zone}")
         # stemcell might have no AZ, pick default model then
         return model_for_default_cpi if availability_zone.nil?
-        @logger.info("availability_zone: #{availability_zone}")
+
         cpi_name = cloud_factory.get_name_for_az(availability_zone)
-        @logger.info("cpi_name: #{cpi_name}")
+        @logger.info("ORANGE - cpi_name: #{cpi_name}")
 
 
         # stemcell might have AZ without cpi, pick default model then
         return model_for_default_cpi if cpi_name.nil?
 
-        @logger.info("cloud_factory.get_cpi_aliases(cpi_name): #{cloud_factory.get_cpi_aliases(cpi_name).inspect}")
+        @logger.info("ORANGE - cloud_factory.get_cpi_aliases(cpi_name): #{cloud_factory.get_cpi_aliases(cpi_name).inspect}")
         model_for_cpi(cloud_factory.get_cpi_aliases(cpi_name))
       end
 
@@ -117,12 +118,13 @@ module Bosh::Director
       end
 
       def model_for_cpi(cpi_aliases)
-        @logger.info("models: #{@models.each{|m| m.inspect}}")
+        @logger.info("ORANGE - model_for_cpi - models: #{@models.each{|m| m.inspect}}")
         stemcell = @models.find { |m| m.cpi == cpi_aliases[0] }
         stemcell = @models.find { |m| cpi_aliases.include?(m.cpi) } if stemcell.nil? && cpi_aliases.length > 1
         if stemcell.nil?
           raise StemcellNotFound, "Required stemcell #{spec} not found for cpi #{cpi_aliases[0]}, please upload again"
         end
+        @logger.info("ORANGE - model_for_cpi - stemcell: #{stemcell.inspect}")
         stemcell
       end
     end
