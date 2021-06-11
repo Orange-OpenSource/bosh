@@ -65,6 +65,7 @@ module Bosh::Director
         @os = model.operating_system
         @version = model.version
         @api_version = model.api_version
+        @logger.info("ORANGE - stemcell.cb: add_stemcell_models() selected first stemcell with name=#{@name}")
       end
 
       def add_deployment_to_models(deployment_model)
