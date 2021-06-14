@@ -43,13 +43,13 @@ module Bosh::Director
       def bind_model(deployment_model)
         raise DirectorError, 'Deployment not bound in the deployment plan' if deployment_model.nil?
 
-        add_stemcell_models
+        add_stemcell_models(deployment_model)
         add_deployment_to_models(deployment_model)
 
         @deployment_model = deployment_model
       end
 
-      def add_stemcell_models
+      def add_stemcell_models(dep_model = nil)
         if is_using_os?
           @logger.info("ORANGE - use all_by_os_and_version")
           @models = @manager.all_by_os_and_version(@os, @version)
@@ -58,6 +58,12 @@ module Bosh::Director
           @logger.info("ORANGE - use all_by_name_and_version")
           @models = @manager.all_by_name_and_version(@name, @version)
           raise StemcellNotFound, "Stemcell '#{@name}/#{@version}' doesn't exist" if models.empty?
+        end
+
+        if dep_model
+            puts "ORANGE - #{dep_model.to_s}"
+        else
+            puts "ORANGE - dep_model nil"
         end
 
         model = @models.first
@@ -124,13 +130,13 @@ module Bosh::Director
       end
 
       def model_for_cpi(cpi_aliases)
-        @logger.info("ORANGE - model_for_cpi - models: #{@models.each{|m| m.inspect}}")
+        @logger.info("ORANGE - model_for_cpi - cpi_aliases #{cpi_aliases} - models: #{@models.each{|m| m.inspect}}")
         stemcell = @models.find { |m| m.cpi == cpi_aliases[0] }
         stemcell = @models.find { |m| cpi_aliases.include?(m.cpi) } if stemcell.nil? && cpi_aliases.length > 1
         if stemcell.nil?
           raise StemcellNotFound, "Required stemcell #{spec} not found for cpi #{cpi_aliases[0]}, please upload again"
         end
-        @logger.info("ORANGE - model_for_cpi - stemcell: #{stemcell.inspect}")
+        @logger.info("ORANGE - model_for_cpi - cpi_aliases #{cpi_aliases} - stemcell: #{stemcell.inspect}")
         stemcell
       end
     end
