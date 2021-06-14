@@ -54,6 +54,8 @@ module Bosh::Director
       instance = instance_plan.instance
       already_had_active_vm = instance.vm_created?
 
+      @logger.info("ORANGE - vm_creator.rb: get_agenda_for_instance_plan() with instance_plan=#{instance_plan.inspect} and full stack trace \n #{caller}")
+
       agenda.steps = [
         DeploymentPlan::Steps::CreateVmStep.new(
           instance_plan,

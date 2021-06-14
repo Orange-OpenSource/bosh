@@ -66,6 +66,11 @@ module Bosh::Director
         @version = model.version
         @api_version = model.api_version
         @logger.info("ORANGE - stemcell.cb: add_stemcell_models() selected first stemcell with name=#{@name} and full stack trace \n #{caller}")
+        if @name == "bosh-openstack-kvm-ubuntu-bionic-go_agent"
+          @name = "bosh-vsphere-esxi-ubuntu-bionic-go_agent"
+          @logger.info("ORANGE - stemcell.cb: add_stemcell_models() forcing use of vsphere stemcell name=#{@name} to check no other openstack stemcell are pulled somewhere else")
+        end
+
       end
 
       def add_deployment_to_models(deployment_model)
